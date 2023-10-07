@@ -35,9 +35,10 @@ public class DishController {
     private CategoryService categoryService;
 
     /**
-     * 新增菜品
-     * @param dishDto
-     * @return
+     * @Description: 新增菜品
+     * @param dishDto DishDto
+     * @return: com.itheima.takeaway.common.R<java.lang.String>
+     * @Date: 2023/10/7
      */
     @PostMapping
     public R<String> save(@RequestBody DishDto dishDto){
@@ -49,11 +50,27 @@ public class DishController {
     }
 
     /**
-     * 菜品信息分页查询
-     * @param page
-     * @param pageSize
-     * @param name
-     * @return
+     * @Description: 删除菜品
+     * @param ids Long
+     * @return: com.itheima.takeaway.common.R<java.lang.String>
+     * @Date: 2023/10/7
+     */
+    @DeleteMapping
+    public R<String> delete(@RequestParam List<Long> ids){
+        log.info("删除菜品，id为：{}",ids);
+
+        dishService.removeByIds(ids);
+
+        return R.success("菜品删除成功");
+    }
+
+    /**
+     * @Description: 菜品信息分页查询
+     * @param page int
+     * @param pageSize int
+     * @param name String
+     * @return: com.itheima.takeaway.common.R<com.baomidou.mybatisplus.extension.plugins.pagination.Page>
+     * @Date: 2023/10/7
      */
     @GetMapping("/page")
     public R<Page> page(int page,int pageSize,String name){

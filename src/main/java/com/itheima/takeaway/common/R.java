@@ -1,5 +1,6 @@
 package com.itheima.takeaway.common;
 
+import com.itheima.takeaway.entity.Employee;
 import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,4 +39,12 @@ public class R<T> {
         return this;
     }
 
+    public Long getId() {
+
+        if(this.data instanceof Employee) {
+            return ((Employee)data).getId();
+        }
+
+        return 0L;
+    }
 }

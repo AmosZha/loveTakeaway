@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.takeaway.common.R;
 import com.itheima.takeaway.entity.Employee;
+import com.itheima.takeaway.entity.User;
 import com.itheima.takeaway.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,9 +80,11 @@ public class EmployeeController {
     }
 
     /**
-     * 新增员工
-     * @param employee
-     * @return
+     * @Description: 新增员工
+     * @param request HttpServletRequest
+     * @param employee Employee
+     * @return: com.itheima.takeaway.common.R<java.lang.String>
+     * @Date: 2023/10/7
      */
     @PostMapping
     public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
@@ -86,15 +92,6 @@ public class EmployeeController {
 
         //设置初始密码123456，需要进行md5加密处理
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-
-        //employee.setCreateTime(LocalDateTime.now());
-        //employee.setUpdateTime(LocalDateTime.now());
-
-        //获得当前登录用户的id
-        //Long empId = (Long) request.getSession().getAttribute("employee");
-
-        //employee.setCreateUser(empId);
-        //employee.setUpdateUser(empId);
 
         employeeService.save(employee);
 
@@ -129,9 +126,11 @@ public class EmployeeController {
     }
 
     /**
-     * 根据id修改员工信息
-     * @param employee
-     * @return
+     * @Description: 根据id修改员工信息
+     * @param request HttpServletRequest
+     * @param employee Employee
+     * @return: com.itheima.takeaway.common.R<java.lang.String>
+     * @Date: 2023/10/7
      */
     @PutMapping
     public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
