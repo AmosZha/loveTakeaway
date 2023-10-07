@@ -26,6 +26,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     /**
      * @Description: 员工登录
      * @param request HttpServletRequest
@@ -86,8 +89,9 @@ public class EmployeeController {
      * @return: com.itheima.takeaway.common.R<java.lang.String>
      * @Date: 2023/10/7
      */
+    @CachePut(value = "userCache", key = "#result.id")
     @PostMapping
-    public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
+    public R<Employee> save(HttpServletRequest request, @RequestBody Employee employee){
         log.info("新增员工，员工信息：{}",employee.toString());
 
         //设置初始密码123456，需要进行md5加密处理
@@ -95,7 +99,7 @@ public class EmployeeController {
 
         employeeService.save(employee);
 
-        return R.success("新增员工成功");
+        return R.success(employee);
     }
 
     /**
@@ -132,6 +136,7 @@ public class EmployeeController {
      * @return: com.itheima.takeaway.common.R<java.lang.String>
      * @Date: 2023/10/7
      */
+    @CacheEvict(value = "userCache",key = "#employee.id") //返回值的id属性
     @PutMapping
     public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
         log.info(employee.toString());

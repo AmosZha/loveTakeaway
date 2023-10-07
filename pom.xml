@@ -12,9 +12,12 @@
     <groupId>com.itheima</groupId>
     <artifactId>loveTakeaway</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
         <java.version>1.8</java.version >
+        <fastjson.version>2.0.39</fastjson.version>
     </properties>
+
     <dependencies>
         <!--阿里云短信服务-->
         <dependency>
@@ -65,21 +68,36 @@
             <version>1.2.76</version>
         </dependency>
 
+        <!-- 阿里JSON解析器 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <!-- Apache Commons Lang工具库-->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
 
-
+        <!-- Spring缓存-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
+        <!-- Redis缓存-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- pool 对象池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
 
         <dependency>
@@ -93,13 +111,13 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.23</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!--使用Redis显示数据缓存-->
 
     </dependencies>
 
